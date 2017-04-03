@@ -1,0 +1,85 @@
+﻿.blue-button {
+    color: dodgerblue;
+}
+
+.green-button {
+    color: green;
+}
+
+.hr-bottom {
+    background-color: #00CCAA;
+    border-width: 0;
+    height: 1px;
+    line-height: 0;
+    text-align: left;
+}
+
+.action-buttons {
+    white-space: nowrap;
+}
+
+.devices-list-title {
+    width: 10%;
+    text-align: left;
+}
+
+.devices-list-item {
+    margin-left: 20px;
+    width: 10%;
+    text-align: left;
+}
+
+.lookups-list-title {
+    width: 35%;
+    text-align: left;
+}
+
+.lookups-list-item {
+    margin-left: 20px;
+    width: 40%;
+    text-align: left;
+}
+
+.phones-list-title {
+    width: 10%;
+    text-align: left;
+}
+
+.phones-list-item {
+    margin-left: 10px;
+    width: 10%;
+    text-align: left;
+}
+
+.receivedevices-list-title {
+    width: 7%;
+    text-align: left;
+}
+
+.receivedevices-list-item {
+    margin-left: 20px;
+    width: 7%;
+    text-align: left;
+}
+
+.deviceproblem-list-title {
+    width: 10%;
+    text-align: left;
+}
+
+.deviceproblem-list-item {
+    margin-left: 30px;
+    width: 15%;
+    text-align: left;
+}
+
+.users-list-title {
+    width: 10%;
+    text-align: left;
+}
+
+.users-list-item {
+    margin-left: 20px;
+    width: 15%;
+    text-align: left;
+}

@@ -1,0 +1,71 @@
+﻿<div class='md-padding' data-ng-init="vm.getAll()">
+    <div layout="row">
+        <div><span class="md-title">
+            <md-icon class="md-warn">people_outline</md-icon> Employees
+            </span>
+            <span class="md-body-1"> (Displaying all {{vm.employees.length}} employees) </span>
+        </div>
+    </div>
+    <hr class="hr-bottom">
+    <div layout="row" class="md-headline" data-ng-if="vm.ErrorMessage">
+        <span class="md-warn md-hue1"> {{::vm.ErrorMessage}}</span>
+    </div>
+    <div layout="row">
+        <div flex="30">
+            <md-input-container>
+                <md-button ui-sref="newemployee">
+                    <md-icon class="blue-button">add_circle_outline</md-icon>
+                    New Employee
+                </md-button>
+                <md-button ui-sref="employees" data-ng-click="vm.getAll()">
+                    <md-icon class="blue-button">refresh</md-icon>
+                    Refresh
+                </md-button>
+            </md-input-container>
+        </div>
+        <div flex="30">
+            <md-input-container class="md-icon-float md-block" style="margin-top: 25px;">
+                <label>Search Employees</label>
+                <md-icon class="blue-button">search</md-icon>
+                <input class="md-subhead" data-ng-model="vm.query" data-ng-change="vm.updatePageSize()">
+            </md-input-container>
+        </div>
+        <div flex="40">
+        </div>
+    </div>
+    <div data-ng-if="!vm.ErrorMessage">
+        <div layout="row" layout-wrap>
+            <md-card style="width: 275px;" ng-repeat="employee in vm.employees | limitTo:vm.totalDisplayed | filter:vm.query">
+                <md-card-content>
+                    <p class="md-title" style="background-color: lightblue; padding: 5px;">{{::employee.name}}</p>
+                    <p style="text-align: right;">
+                        <img src="images/nobody.jpg">
+                    </p>
+                    <p class="md-body-1"><strong>Email:</strong> {{::employee.email}}
+                        <br>
+                        <strong>Address:</strong> {{employee.address.length
+                        < 18 ? employee.address : employee.address.substring(0, 18) + '...'}} <md-tooltip md-direction="top" data-ng-if="employee.address.length >= 18"><strong>Address:</strong>{{::employee.address}}</md-tooltip>
+                            <br ng-if="employee.type">
+                            <strong ng-if="employee.type">Type:</strong> {{::employee.type}}
+                            <br>
+                            <strong style="white-space: pre;">{{employee.phones? 'Phone:': ' '}}</strong> {{::employee.phones[0].number}}
+                    </p>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <md-button class="md-fab md-mini md-primary md-hue-3" data-ng-disabled="!employee.phones" data-ng-click="vm.showPhones($event, employee)">
+                        <md-icon>phone</md-icon>
+                        <md-tooltip md-direction="top">View All Phones</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary md-hue-1" data-ng-click="$state.transitionTo('editemployee', { employeeId: employee.id })">
+                        <md-icon>mode_edit</md-icon>
+                        <md-tooltip md-direction="top">Edit</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.confirmDelete($event, employee.id)">
+                        <md-icon>delete</md-icon>
+                        <md-tooltip md-direction="top">Delete</md-tooltip>
+                    </md-button>
+                </div>
+            </md-card>
+        </div>
+    </div>
+</div>

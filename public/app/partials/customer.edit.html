@@ -1,0 +1,94 @@
+<div class='md-padding' data-ng-init="vm.getCustomer()">
+    <div layout="row">
+        <div class="md-title"><span><md-icon class="md-warn">person_outline</md-icon> Edit Customer</span></div>
+    </div>
+    <hr class="hr-bottom">
+    <div layout="row" class="md-headline" data-ng-if="vm.ErrorMessage">
+        <span class="md-warn md-hue1"> {{::vm.ErrorMessage}}</span>
+    </div>
+    <md-content>
+        <form name="customerForm">
+            <div layout="row">
+                <div flex="30">
+                    <md-input-container class="md-block">
+                        <label>Name</label>
+                        <md-icon style="color: dodgerblue;">person</md-icon>
+                        <input name="name" md-maxlength="50" required ng-model="vm.customer.name" />
+                    </md-input-container>
+                </div>
+                <div flex="5" hide-xs hide-sm>
+                    <!-- Spacer //-->
+                </div>
+                <div flex="40">
+                    <md-input-container class="md-block">
+                        <label>Email</label>
+                        <md-icon style="color: orange;">email</md-icon>
+                        <input name="email" ng-model="vm.customer.email" md-maxlength="70" ng-pattern="/^.+@.+\..+$/" />
+                    </md-input-container>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="75">
+                    <md-input-container class="md-block">
+                        <label>Address</label>
+                        <md-icon style="color: green;">mail_outline</md-icon>
+                        <input name="address" md-maxlength="255" ng-model="vm.customer.address" />
+                    </md-input-container>
+                </div>
+            </div>
+        </form>
+    </md-content>
+    <div layout="row">
+        <div class="md-title"><span><md-icon class="md-warn">contact_phone</md-icon> Contact Phones</span></div>
+    </div>
+    <hr class="hr-bottom">
+    <div class="row">
+        <div flex="60" style="max-height:220px; overflow-y:auto">
+            <md-list-item class="md-body-2" style="font-weight: bold;">
+                <p class="phones-list-title">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="vm.addEditCustomerPhone($event)">
+                        <md-icon>add_circle_outline</md-icon>
+                        <md-tooltip md-direction="top">New phone</md-tooltip>
+                    </md-button>
+                    Phone Number
+                </p>
+                <p class="phones-list-title">Phone Type</p>
+                <p class="phones-list-title">SMS Enabled</p>
+                <p>Actions</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-repeat="phone in vm.customer.phones" class="md-body-1">
+                <p class="phones-list-item">{{::phone.number}}</p>
+                <p class="phones-list-item">{{::phone.type}}</p>
+                <p class="phones-list-item">{{::phone.smsEnabled}}</p>
+                <p class="phones-list-item">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="vm.addEditCustomerPhone($event, $index + 1)">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip md-direction="top">Edit</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.removeCustomerPhone($event, phone)">
+                        <md-icon>delete</md-icon>
+                        <md-tooltip md-direction="top">Delete</md-tooltip>
+                    </md-button>
+                </p>
+                <md-divider></md-divider>
+            </md-list-item>
+        </div>
+    </div>
+    <hr class="hr-bottom">
+    <div layout="row">
+        <span flex></span>
+        <md-button>
+            <md-icon class="green-button">arrow_back</md-icon>
+            Back
+        </md-button>
+        <md-button data-ng-click="vm.getCustomer()">
+            <md-icon class="md-warn">cancel</md-icon>
+            Cancel
+        </md-button>
+        <md-button class="md-primary" data-ng-click="vm.updateCustomer();">
+            <md-icon>update</md-icon>
+            Update
+        </md-button>
+    </div>
+</div>

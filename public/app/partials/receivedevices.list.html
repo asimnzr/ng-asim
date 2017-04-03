@@ -1,0 +1,69 @@
+<div class='md-padding' data-ng-init="vm.getAll()">
+    <div layout="row">
+        <div><span class="md-title">
+            <md-icon class="md-warn">important_devices</md-icon> {{$state.includes('receivedevices')? 'Receive Devices': ''}} {{$state.includes('communication')? 'Communications': ''}} {{$state.includes('fixing')? 'Fixing Receive Devices': ''}}
+            </span>
+            <span class="md-body-1"> (Displaying all {{vm.receiveDevices.length}} {{$state.includes('receivedevices')? 'Receive Devices': ''}} {{$state.includes('communication')? 'Communications': ''}} {{$state.includes('fixing')? 'Fixing Receive Devices': ''}}) </span>
+        </div>
+    </div>
+    <hr class="hr-bottom">
+    <div layout="row" class="md-headline" data-ng-if="vm.ErrorMessage">
+        <span class="md-warn md-hue1"> {{::vm.ErrorMessage}}</span>
+    </div>
+    <div layout="row">
+        <div flex="30">
+            <md-input-container>
+                <md-button ui-sref="newreceivedevice" data-ng-click="vm.initializeNew()" data-ng-if="$state.includes('receivedevices')">
+                    <md-icon class="blue-button">add_to_queue</md-icon>
+                    New Receive Device
+                </md-button>
+                <md-button ui-sref="{{$state.current.name}}" data-ng-click="vm.getAll()">
+                    <md-icon class="blue-button">refresh</md-icon>
+                    Refresh
+                </md-button>
+            </md-input-container>
+        </div>
+        <div flex="30">
+            <md-input-container class="md-icon-float md-block" style="margin-top: 25px;">
+                <label>Search {{$state.includes('receivedevices')? 'Receive Devices': ''}} {{$state.includes('communication')? 'Communications': ''}} {{$state.includes('fixing')? 'Fixing Receive Devices': ''}}</label>
+                <md-icon class="blue-button">search</md-icon>
+                <input class="md-subhead" ng-model="vm.query">
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="row" data-ng-if="!vm.ErrorMessage">
+        <div flex="100" style="max-height:400px; overflow-y:auto">
+            <md-list-item class="md-body-2" style="font-weight: bold;">
+                <p class="receivedevices-list-title">Customer</p>
+                <p class="receivedevices-list-title" style="width:15%;">Device</p>
+                <p class="receivedevices-list-title">Sticker #</p>
+                <p class="receivedevices-list-title">Serial #</p>
+                <p class="receivedevices-list-title">Form #</p>
+                <p class="receivedevices-list-title">Receive Date</p>
+                <p class="receivedevices-list-title">Handover Date</p>
+                <p>Actions</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-repeat="receiveDevice in vm.receiveDevices | filter:vm.query" class="md-body-1">
+                <p class="receivedevices-list-item">{{::receiveDevice.Customer.name || ' '}}</p>
+                <p class="receivedevices-list-item" style="width:15%;">{{::receiveDevice.Device.DeviceType.name || ' '}} {{::receiveDevice.Device.brand || ' '}} {{::receiveDevice.Device.series || ' '}} {{::receiveDevice.Device.model }}</p>
+                <p class="receivedevices-list-item">{{::receiveDevice.stickerNo || ' '}}</p>
+                <p class="receivedevices-list-item">{{::receiveDevice.serialNo || ' '}}</p>
+                <p class="receivedevices-list-item">{{::receiveDevice.formNo || ' '}}</p>
+                <p class="receivedevices-list-item">{{::receiveDevice.receiveDate | date:'MM/dd/yyyy' || ' '}}</p>
+                <p class="receivedevices-list-item">{{::receiveDevice.handoverDate | date:'MM/dd/yyyy' || ' '}}</p>
+                <p class="receivedevices-list-item action-buttons">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="vm.startEdit(receiveDevice.id)">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip md-direction="top">Edit</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.deleteReceiveDevice($event, receiveDevice.id)" data-ng-if="$state.includes('receivedevices')">
+                        <md-icon>delete</md-icon>
+                        <md-tooltip md-direction="top">Delete</md-tooltip>
+                    </md-button>
+                </p>
+                <md-divider></md-divider>
+            </md-list-item>
+        </div>
+    </div>
+</div>

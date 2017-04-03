@@ -1,0 +1,26 @@
+'use strict';
+
+const indexRoutes = require('./index.js');
+const authRoutes = require('./authentication.js');
+const customerRoutes = require('./customer.js');
+const employeeRoutes = require('./employee.js');
+const deviceTypeRoutes = require('./devicetype.js');
+const deviceRoutes = require('./device.js');
+const locationRoutes = require('./location.js');
+const missingDeviceRoutes = require('./missingdevice.js');
+const accessoryRoutes = require('./accessory.js');
+const deviceProblemRoutes = require('./deviceproblem.js');
+const receiveDeviceRoutes = require('./receivedevice.js');
+var allRoutes = [];
+allRoutes = allRoutes.concat(indexRoutes);
+allRoutes = allRoutes.concat(authRoutes);
+allRoutes = allRoutes.concat(customerRoutes);
+allRoutes = allRoutes.concat(employeeRoutes);
+allRoutes = allRoutes.concat(deviceTypeRoutes);
+allRoutes = allRoutes.concat(deviceRoutes);
+allRoutes = allRoutes.concat(locationRoutes);
+allRoutes = allRoutes.concat(missingDeviceRoutes);
+allRoutes = allRoutes.concat(accessoryRoutes);
+allRoutes = allRoutes.concat(deviceProblemRoutes);
+allRoutes = allRoutes.concat(receiveDeviceRoutes);
+module.exports = allRoutes;

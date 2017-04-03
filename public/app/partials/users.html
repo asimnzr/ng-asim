@@ -1,0 +1,106 @@
+<div class='md-padding' data-ng-init="vm.getAll()">
+    <div layout="row">
+        <div><span class="md-title">
+            <md-icon class="md-warn">group</md-icon> Users
+            </span>
+            <span class="md-body-1"> (Displaying all {{vm.users.length}} Users) </span>
+        </div>
+    </div>
+    <hr class="hr-bottom">
+    <div layout="row" class="md-headline" data-ng-if="vm.ErrorMessage">
+        <span class="md-warn md-hue1"> {{::vm.ErrorMessage}}</span>
+    </div>
+    <div layout="row">
+        <div flex="30">
+            <md-input-container>
+                <md-button ui-sref="" data-ng-click="vm.initializeNew()">
+                    <md-icon class="blue-button">add_to_queue</md-icon>
+                    New User
+                </md-button>
+                <md-button ui-sref="users" data-ng-click="vm.getAll()">
+                    <md-icon class="blue-button">refresh</md-icon>
+                    Refresh
+                </md-button>
+            </md-input-container>
+        </div>
+        <div flex="30">
+            <md-input-container class="md-icon-float md-block" style="margin-top: 25px;">
+                <label>Search Users</label>
+                <md-icon class="blue-button">search</md-icon>
+                <input class="md-subhead" ng-model="vm.query">
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="row" data-ng-if="!vm.ErrorMessage">
+        <div flex="80" style="max-height:400px; overflow-y:auto">
+            <md-list-item class="md-body-2" style="font-weight: bold;">
+                <p class="users-list-title">User Name</p>
+                <p class="users-list-title">Email</p>
+                <p class="users-list-title">Role</p>
+                <p>Actions</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-repeat="user in vm.users | filter:vm.query" class="md-body-1">
+                <p data-ng-if="!user.isNew && !user.isEdit" class="users-list-item">{{::user.username}}</p>
+                <p data-ng-if="!user.isNew && !user.isEdit" class="users-list-item">{{::user.email}}</p>
+                <p data-ng-if="!user.isNew && !user.isEdit" class="users-list-item">{{::user.role}}</p>
+                <p data-ng-if="user.isNew || user.isEdit" style="margin-top: 25px;" class="users-list-item action-buttons">
+                    <md-input-container>
+                        <label>User Name</label>
+                        <input name="username" md-maxlength="30" required ng-model="user.username" />
+                    </md-input-container>
+                </p>
+                <p data-ng-if="user.isNew" class="users-list-item" style="margin-top: 25px;">
+                    <md-input-container>
+                        <label>Password</label>
+                        <input name="password" type="password" md-maxlength="8" class="users-list-item" required ng-model="user.password" />
+                    </md-input-container>
+                </p>
+                <p data-ng-if="user.isNew || user.isEdit" class="users-list-item" style="margin-top: 25px;">
+                    <md-input-container>
+                        <label>Email</label>
+                        <input name="email" md-maxlength="50" class="users-list-item" required ng-model="user.email" />
+                    </md-input-container>
+                </p>
+                <p data-ng-if="user.isNew || user.isEdit" class="users-list-item">
+                    <md-input-container>
+                        <label>Role</label>
+                        <md-select ng-model="user.role" style="width: 200px;">
+                            <md-option ng-repeat="role in vm.roles" value="{{role}}">
+                                {{role}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <!--<md-input-container>
+                        <input name="role" md-maxlength="50" required ng-model="user.role" />
+                    </md-input-container>-->
+                </p>
+                <p data-ng-if="user.isNew || user.isEdit">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="vm.addEditUser(user)">
+                        <md-icon class="green-button">save</md-icon>
+                        <md-tooltip md-direction="top">Save</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.cancelEdit(user)">
+                        <md-icon>cancel</md-icon>
+                        <md-tooltip md-direction="top">Cancel</md-tooltip>
+                    </md-button>
+                </p>
+                <p data-ng-if="!user.isNew && !user.isEdit">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="vm.startEdit(user)">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip md-direction="top">Edit</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.deleteUser($event, user)">
+                        <md-icon>delete</md-icon>
+                        <md-tooltip md-direction="top">Delete</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn" data-ng-click="vm.setPassword($event, user)">
+                        <md-icon>vpn_key</md-icon>
+                        <md-tooltip md-direction="top">Set Password</md-tooltip>
+                    </md-button>
+                </p>
+                <md-divider></md-divider>
+            </md-list-item>
+        </div>
+    </div>
+</div>

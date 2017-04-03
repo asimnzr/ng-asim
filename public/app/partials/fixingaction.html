@@ -1,0 +1,37 @@
+<div id="fixingActionDialog" style="width: 500px;">
+	<md-dialog aria-label="Fixing action" ng-cloak>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h4>Fixing action</h4>
+				<span flex></span>
+				<md-button class="md-icon-button" data-ng-click="cancel()">
+					<md-icon aria-label="Close dialog">close</md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			<div class="md-dialog-content">
+				<md-input-container class="md-block">
+					<label>Location: {{objStatus.location.name}}</label>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Old Status: {{objStatus.oldStatus.name}}</label>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>New Status: {{objStatus.newStatus.name}}</label>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button class="md-primary" data-ng-click="save()">
+				<md-icon>save</md-icon>
+				Ok
+			</md-button>
+			<md-button data-ng-click="cancel()">
+				<md-icon class="md-warn">cancel</md-icon>
+				Cancel
+			</md-button>
+		</md-dialog-actions>
+	</md-dialog>
+</div>

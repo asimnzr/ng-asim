@@ -1,0 +1,14 @@
+{
+    "host": "127.0.0.1",
+    "database": "reptran",
+    "user": "postgres",
+    "pass": "sa",
+    "dialect": "postgres",
+    "port": 5432,
+    "models": "server/models/**/*.js",
+    "sequelize": {
+        "define": {
+            "underscoredAll": true
+        }
+    }
+}

@@ -1,0 +1,51 @@
+<div id="editPhoneDialog" style="width: 400px;">
+    <md-dialog aria-label="Phones" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h4>{{isNew? 'New Phone': 'Edit Phone'}}</h4>
+                <span flex></span>
+                <md-button class="md-icon-button" data-ng-click="cancel()">
+                    <md-icon aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <form name="customerForm">
+                    <md-input-container class="md-block">
+                        <label>Type</label>
+                        <md-select ng-model="phone.type">
+                            <md-option ng-repeat="phoneType in ['Mobile', 'Land Line', 'Fax']" value="{{phoneType}}">
+                                {{phoneType}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Phone Number</label>
+                        <input name="number" ng-model="phone.number" />
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <md-checkbox ng-model="phone.smsEnabled" data-ng-disabled="phone.type !== 'Mobile'">
+                            SMS Enabled
+                        </md-checkbox>
+                    </md-input-container>
+                </form>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button data-ng-click="cancel()">
+                <md-icon class="md-warn">cancel</md-icon>
+                Cancel
+            </md-button>
+            <md-button class="md-primary" data-ng-click="save()" data-ng-if="isNew">
+                <md-icon>save</md-icon>
+                Save
+            </md-button>
+            <md-button class="md-primary" data-ng-click="save()" data-ng-if="!isNew">
+                <md-icon>update</md-icon>
+                Update
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</div>

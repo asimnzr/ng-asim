@@ -1,0 +1,97 @@
+<div class='md-padding' data-ng-init="vm.getAll()">
+    <div layout="row">
+        <div><span class="md-title">
+            <md-icon class="md-warn">devices_other</md-icon> Devices
+            </span>
+            <span class="md-body-1"> (Displaying all {{vm.devices.length}} Devices) </span>
+        </div>
+    </div>
+    <hr class="hr-bottom">
+    <div layout="row" class="md-headline" data-ng-if="vm.ErrorMessage">
+        <span class="md-warn md-hue1"> {{::vm.ErrorMessage}}</span>
+    </div>
+    <div layout="row">
+        <div flex="30">
+            <md-input-container>
+                <md-button ui-sref="" data-ng-click="vm.initializeNew()">
+                    <md-icon class="blue-button">add_to_queue</md-icon>
+                    New Device
+                </md-button>
+                <md-button ui-sref="devices" data-ng-click="vm.getAll()">
+                    <md-icon class="blue-button">refresh</md-icon>
+                    Refresh
+                </md-button>
+            </md-input-container>
+        </div>
+        <div flex="30">
+            <md-input-container class="md-icon-float md-block" style="margin-top: 25px;">
+                <label>Search Devices</label>
+                <md-icon class="blue-button">search</md-icon>
+                <input class="md-subhead" ng-model="vm.query">
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="row" data-ng-if="!vm.ErrorMessage">
+        <div flex="80" style="max-height:400px; overflow-y:auto">
+            <md-list-item class="md-body-2" style="font-weight: bold;">
+                <p class="devices-list-title">Device Type</p>
+                <p class="devices-list-title">Brand</p>
+                <p class="devices-list-title">Series</p>
+                <p class="devices-list-title">Model</p>
+                <p>Actions</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-repeat="device in vm.devices | filter:vm.query" class="md-body-1">
+                <p data-ng-if="!device.isNew && !device.isEdit" class="devices-list-item">{{::device.DeviceType.name}}</p>
+                <p data-ng-if="!device.isNew && !device.isEdit" class="devices-list-item">{{::device.brand}}</p>
+                <p data-ng-if="!device.isNew && !device.isEdit" class="devices-list-item">{{::device.series}}</p>
+                <p data-ng-if="!device.isNew && !device.isEdit" class="devices-list-item">{{::device.model}}</p>
+                <p data-ng-if="device.isNew || device.isEdit" class="devices-list-item action-buttons">
+                    <md-input-container>
+                        <md-select ng-model="device.DeviceTypeId" style="width: 120px;">
+                            <md-option ng-repeat="deviceType in vm.deviceTypes" value="{{deviceType.id}}">
+                                {{deviceType.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </p>
+                <p data-ng-if="device.isNew || device.isEdit" style="margin-top: 25px;">
+                    <md-input-container>
+                        <input name="brand" md-maxlength="50" required ng-model="device.brand" />
+                    </md-input-container>
+                </p>
+                <p data-ng-if="device.isNew || device.isEdit" style="margin-top: 25px;">
+                    <md-input-container>
+                        <input name="series" md-maxlength="50" required ng-model="device.series" />
+                    </md-input-container>
+                </p>
+                <p data-ng-if="device.isNew || device.isEdit" style="margin-top: 25px;">
+                    <md-input-container>
+                        <input name="model" md-maxlength="50" required ng-model="device.model" />
+                    </md-input-container>
+                </p>
+                <p data-ng-if="device.isNew || device.isEdit">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="vm.addEditDevice(device)">
+                        <md-icon class="green-button">save</md-icon>
+                        <md-tooltip md-direction="top">Save</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.cancelEdit(device)">
+                        <md-icon>cancel</md-icon>
+                        <md-tooltip md-direction="top">Cancel</md-tooltip>
+                    </md-button>
+                </p>
+                <p data-ng-if="!device.isNew && !device.isEdit">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="device.isEdit=true">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip md-direction="top">Edit</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.deleteDevice($event, device)">
+                        <md-icon>delete</md-icon>
+                        <md-tooltip md-direction="top">Delete</md-tooltip>
+                    </md-button>
+                </p>
+                <md-divider></md-divider>
+            </md-list-item>
+        </div>
+    </div>
+</div>

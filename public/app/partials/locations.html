@@ -1,0 +1,75 @@
+<div class='md-padding' data-ng-init="vm.getAll()">
+    <div layout="row">
+        <div><span class="md-title">
+            <md-icon class="md-warn">room_service</md-icon> Locations
+            </span>
+            <span class="md-body-1"> (Displaying all {{vm.locations.length}} locations) </span>
+        </div>
+    </div>
+    <hr class="hr-bottom">
+    <div layout="row" class="md-headline" data-ng-if="vm.ErrorMessage">
+        <span class="md-warn md-hue1"> {{::vm.ErrorMessage}}</span>
+    </div>
+    <div layout="row">
+        <div flex="30">
+            <md-input-container>
+                <md-button ui-sref="" data-ng-click="vm.initializeNew()">
+                    <md-icon class="blue-button">add_location</md-icon>
+                    New Location
+                </md-button>
+                <md-button ui-sref="locations" data-ng-click="vm.getAll()">
+                    <md-icon class="blue-button">refresh</md-icon>
+                    Refresh
+                </md-button>
+            </md-input-container>
+        </div>
+        <div flex="30">
+            <md-input-container class="md-icon-float md-block" style="margin-top: 25px;">
+                <label>Search Locations</label>
+                <md-icon class="blue-button">search</md-icon>
+                <input class="md-subhead" ng-model="vm.query" data-ng-change="vm.updatePageSize()">
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="row" data-ng-if="!vm.ErrorMessage">
+        <div flex="20"></div>
+        <div flex="40" style="max-height:400px; overflow-y:auto">
+            <md-list-item class="md-body-2" style="font-weight: bold;">
+                <p class="lookups-list-title">Location Name</p>
+                <p>Actions</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-repeat="location in vm.locations | filter:vm.query" class="md-body-1">
+                <p data-ng-if="!location.isNew && !location.isEdit" class="lookups-list-item">{{::location.name}}</p>
+                <p data-ng-if="location.isNew || location.isEdit">
+                    <md-input-container class="md-block">
+                        <label>Location Name</label>
+                        <md-icon style="color: green;">location_on</md-icon>
+                        <input name="name" md-maxlength="50" required ng-model="location.name" />
+                    </md-input-container>
+                </p>
+                <p data-ng-if="location.isNew || location.isEdit">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="vm.addEditLocation(location)">
+                        <md-icon class="green-button">save</md-icon>
+                        <md-tooltip md-direction="top">Save</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.cancelEdit(location)">
+                        <md-icon>cancel</md-icon>
+                        <md-tooltip md-direction="top">Cancel</md-tooltip>
+                    </md-button>
+                </p>
+                <p data-ng-if="!location.isNew && !location.isEdit">
+                    <md-button class="md-fab md-mini md-primary" data-ng-click="location.isEdit=true">
+                        <md-icon>edit</md-icon>
+                        <md-tooltip md-direction="top">Edit</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-warn md-hue-2" data-ng-click="vm.deleteLocation($event, location)">
+                        <md-icon>delete</md-icon>
+                        <md-tooltip md-direction="top">Delete</md-tooltip>
+                    </md-button>
+                </p>
+                <md-divider></md-divider>
+            </md-list-item>
+        </div>
+    </div>
+</div>

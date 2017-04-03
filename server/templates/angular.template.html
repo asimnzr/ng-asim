@@ -1,0 +1,179 @@
+<html lang="en">
+
+<head>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css">
+    <!--<link rel="stylesheet" type="text/css" href="bower_components/mdDataTable/dist/md-data-table-style.css">-->
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material-data-table/dist/md-data-table.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/mdPickers/dist/mdPickers.min.css">
+
+    <link rel="stylesheet" type="text/css" href="app/styles/google-fonts.css">
+    <link rel="stylesheet" type="text/css" href="app/styles/app.css">
+    <title>Reptran - Dashboard</title>
+</head>
+
+<body ng-app="reptran" ng-controller="IndexController as vm" ng-cloak>
+    <md-toolbar class="md-menu-toolbar md-title" ng-if="!$state.includes('login')">
+        <md-whiteframe class="md-whiteframe-4dp">
+            <div layout="row" layout-align="center center">
+                <md-menu-bar class="md-primary" style="margin-left: -20px;">
+                    <md-menu>
+                        <button ng-click="$state.transitionTo('home')" ng-class="{active: $state.includes('home')}" ui-sref="home">
+                            <md-icon style="color:orangered;">home</md-icon>
+                            Home
+                        </button>
+                        <span>
+                        </span>
+                    </md-menu>
+                    <md-menu>
+                        <button ng-click="$state.transitionTo('receivedevices')" ui-sref="receivedevices">
+                            <md-icon style="color:orangered;">important_devices</md-icon>
+                            Receive Devices
+                        </button>
+                        <span>
+                        </span>
+                    </md-menu>
+                    <md-menu>
+                        <button ng-click="$state.transitionTo('fixing')" ng-class="{active: $state.includes('fixing')}" ui-sref="fixing">
+                            <md-icon style="color:orangered;">settings</md-icon>
+                            Fixing
+                        </button>
+                        <span>
+                        </span>
+                    </md-menu>
+                    <md-menu>
+                        <button ng-click="$state.transitionTo('communication')" ng-class="{active: $state.includes('communication')}" ui-sref="communication">
+                            <md-icon style="color:orangered;">call</md-icon>
+                            Communication
+                        </button>
+                        <span>
+                        </span>
+                    </md-menu>
+                    <md-menu>
+                        <button ng-click="$state.transitionTo('customers')" ng-class="{active: $state.includes('customers')}" ui-sref="customers">
+                            <md-icon style="color:orangered;">people_outline</md-icon>
+                            Customers
+                        </button>
+                        <span>
+                        </span>
+                    </md-menu>
+                    <md-menu>
+                        <button ng-click="$state.transitionTo('employees')" ng-class="{active: $state.includes('employees')}" ui-sref="employees">
+                            <md-icon style="color:orangered;">group</md-icon>
+                            Employees
+                        </button>
+                        <span>
+                        </span>
+                    </md-menu>
+                    <md-menu>
+                        <button ng-click="$mdOpenMenu()">
+                            <md-icon style="color:orangered;">donut_large</md-icon>
+                            Lookups
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button data-ng-click="$state.transitionTo('devicetypes')" ui-sref="devicetypes">
+                                    <md-icon style="color:orangered">device_hub</md-icon>Device Types
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button data-ng-click="$state.transitionTo('devices')" ui-sref="devices">
+                                    <md-icon style="color:orangered">devices_other</md-icon>Devices
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button data-ng-click="$state.transitionTo('locations')" ui-sref="locations">
+                                    <md-icon style="color:orangered">room_service</md-icon>Locations
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button data-ng-click="$state.transitionTo('missingdevices')" ui-sref="missingdevices">
+                                    <md-icon style="color:orangered">devices</md-icon>Missing Devices
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button data-ng-click="$state.transitionTo('accessories')" ui-sref="accessories">
+                                    <md-icon style="color:orangered">widgets</md-icon>Accessories
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button data-ng-click="$state.transitionTo('deviceproblems')" ui-sref="deviceproblems">
+                                    <md-icon style="color:orangered">report_problem</md-icon>Device Problems
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </md-menu-bar>
+                <span flex></span>
+
+                <md-menu>
+                    <md-button aria-label="Open user options" class="md-fab md-mini md-warn" ng-click="$mdOpenMenu($event)">
+                        <md-icon>touch_app</md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        {{#if isAdmin}}
+                        <md-menu-item>
+                            <md-button aria-label="Manage Users" class="md-button" data-ng-click="$state.transitionTo('users')" ui-sref="users">
+                                <md-icon>person_add</md-icon>
+                                Manage Users
+                            </md-button>
+                        </md-menu-item>
+                        {{/if}}
+                        <md-menu-item>
+                            <md-button aria-label="Change Password" class="md-button md-primary" data-ng-click="$state.transitionTo('changepassword')" ui-sref="changepassword">
+                                <md-icon>vpn_key</md-icon>
+                                Change Password
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider></md-menu-divider>
+                        <md-menu-item>
+                            <md-button ng-click="vm.logout()" class="md-warn">
+                                <md-icon>all_out</md-icon>
+                                Log off
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </md-whiteframe>
+    </md-toolbar>
+    <div style="max-height:87%; overflow-y:auto" ui-view>{{message}}</div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
+    <!--<script src="bower_components/mdDataTable/dist/md-data-table-templates.js"></script>
+    <script src="bower_components/mdDataTable/dist/md-data-table.js"></script>-->
+    <!--<script src="bower_components/angular-smart-table/dist/smart-table.js"></script>-->
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/mdPickers/dist/mdPickers.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/routes/appRoutes.js"></script>
+    <script src="app/controllers/IndexController.js"></script>
+    <script src="app/controllers/Users.js"></script>
+    <script src="app/controllers/DialogControllers.js"></script>
+    <script src="app/controllers/ReceiveDevicesList.js"></script>
+    <script src="app/controllers/ReceiveDeviceDetails.js"></script>
+    <script src="app/controllers/CustomersList.js"></script>
+    <script src="app/controllers/CustomerDetails.js"></script>
+    <script src="app/controllers/EmployeesList.js"></script>
+    <script src="app/controllers/EmployeeDetails.js"></script>
+    <script src="app/controllers/DeviceTypes.js"></script>
+    <script src="app/controllers/Devices.js"></script>
+    <script src="app/controllers/Locations.js"></script>
+    <script src="app/controllers/MissingDevices.js"></script>
+    <script src="app/controllers/Accessories.js"></script>
+    <script src="app/controllers/DeviceProblems.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<div id="editReceiveDeviceProblemDialog" style="width: 500px;">
+    <md-dialog aria-label="DeviceProlems" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h4>{{isNew? 'New Receive Device Problem': 'Edit Receive Device Problem'}}</h4>
+                <span flex></span>
+                <md-button class="md-icon-button" data-ng-click="cancel()">
+                    <md-icon aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <form name="receiveDeviceProblemForm">
+                    <md-input-container class="md-block">
+                        <label>Problem</label>
+                        <md-select ng-model="receiveDeviceProblem.DeviceProblemId">
+                            <md-option ng-repeat="deviceProblem in deviceProblems" value="{{deviceProblem.id}}">
+                                {{deviceProblem.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Detail</label>
+                        <input name="detail" ng-model="receiveDeviceProblem.detail" />
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Cost</label>
+                        <input name="cost" ng-model="receiveDeviceProblem.cost" />
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Service Charges</label>
+                        <input name="serviceCharges" ng-model="receiveDeviceProblem.serviceCharges" />
+                    </md-input-container>
+                </form>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button data-ng-click="cancel()">
+                <md-icon class="md-warn">cancel</md-icon>
+                Cancel
+            </md-button>
+            <md-button class="md-primary" data-ng-click="save()" data-ng-if="isNew">
+                <md-icon>save</md-icon>
+                Save
+            </md-button>
+            <md-button class="md-primary" data-ng-click="save()" data-ng-if="!isNew">
+                <md-icon>update</md-icon>
+                Update
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</div>

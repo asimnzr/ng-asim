@@ -1,0 +1,33 @@
+<div id="phonesDialogContainer" style="width: 400px;">
+    <md-dialog aria-label="Phones" ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h4>{{::title}} - Phones</h4>
+                <span flex></span>
+                <md-button class="md-icon-button" data-ng-click="cancel()">
+                    <md-icon aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-list-item class="md-2-line" ng-repeat="phone in phones">
+                    <md-icon ng-if="phone.type === 'Land Line'" class="md-accent">phone</md-icon>
+                    <md-icon ng-if="phone.type === 'Mobile'" class="md-warn">phone_android</md-icon>
+                    <md-icon ng-if="phone.type === 'Fax'" class="md-primary">phonelink_off</md-icon>
+                    <div class="md-list-item-text">
+                        <p class="md-body-1"> <strong>{{::phone.number}}</strong>
+                            <br>{{::phone.type}} <span ng-if="phone.type === 'Mobile' && phone.smsEnabled"> - SMS Enabled</span>
+                        </p>
+                    </div>
+                </md-list-item>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button md-no-ink class="md-primary" data-ng-click="cancel()">
+                Close
+            </md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</div>
